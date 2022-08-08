@@ -23,7 +23,7 @@ public class ChessMatch {
 	}
 	
 	private void init() {
-		this.board.placePiece(new Rook(board, Color.WHITE), new Position(2, 1));
+		this.board.placePiece(new Rook(board, Color.WHITE), new Position(4, 2));
 		this.board.placePiece(new King(board, Color.BLACK), new Position(4, 2));
 	}
 }
