@@ -1,0 +1,60 @@
+package chess.pieces;
+
+import boardgame.Board;
+import boardgame.Position;
+import chess.ChessPiece;
+import chess.Color;
+
+public class Bishop extends ChessPiece {
+
+	public Bishop(Board board, Color color) {
+		super(board, color);
+	}
+	
+	@Override
+	public String toString() {
+		return "B";
+	}
+	
+	@Override
+	public boolean[][] possibleMoves() {
+		boolean[][] tmp = new boolean[getBoard().getRows()][getBoard().getCols()];
+		
+		Position p = new Position(0, 0);
+		
+		//nw
+		p.setValues(pos.getRow() - 1, pos.getCol() - 1);
+		while(getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+			tmp[p.getRow()][p.getCol()] = true;
+			p.setValues(p.getRow() - 1, p.getCol() - 1);
+		}
+		if(getBoard().positionExists(p) && isThereOpponentPiece(p)) tmp[p.getRow()][p.getCol()] = true;
+		
+		//ne
+		p.setValues(pos.getRow() - 1, pos.getCol() + 1);
+		while(getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+			tmp[p.getRow()][p.getCol()] = true;
+			p.setValues(p.getRow() - 1, p.getCol() + 1);
+		}
+		if(getBoard().positionExists(p) && isThereOpponentPiece(p)) tmp[p.getRow()][p.getCol()] = true;
+		
+		//se
+		p.setValues(pos.getRow() + 1, pos.getCol() + 1);
+		while(getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+			tmp[p.getRow()][p.getCol()] = true;
+			p.setValues(p.getRow() + 1, p.getCol() + 1);
+		}
+		if(getBoard().positionExists(p) && isThereOpponentPiece(p)) tmp[p.getRow()][p.getCol()] = true;
+		
+		//sw
+		p.setValues(pos.getRow() + 1, pos.getCol() - 1);
+		while(getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
+			tmp[p.getRow()][p.getCol()] = true;
+			p.setValues(p.getRow() + 1, p.getCol() - 1);
+		}
+		if(getBoard().positionExists(p) && isThereOpponentPiece(p)) tmp[p.getRow()][p.getCol()] = true;
+		
+		return tmp;
+	}
+
+}
