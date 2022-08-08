@@ -17,7 +17,7 @@ public class Program {
 		List<ChessPiece> catched = new ArrayList<>();
 		
 		
-		while(true) {
+		while(!chessMatch.getCheckMate()) {
 			try {				
 				BoardBuilder.clearScreen();
 				BoardBuilder.printMatch(chessMatch, catched);
@@ -47,6 +47,8 @@ public class Program {
 				sc.nextLine();
 			}
 		}
+		BoardBuilder.clearScreen();
+		BoardBuilder.printMatch(chessMatch, catched);
 	}
 
 }
