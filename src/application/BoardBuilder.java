@@ -55,6 +55,9 @@ public class BoardBuilder {
 		printCatchedPieces(catched);
 		System.out.println("Turn: " + match.getTurn());
 		System.out.println("Waiting player: " + match.getCurrentPlayer()); 
+		if(match.getCheck()) {
+			System.out.println("CHECK");
+		}
 	}
 	
 	public static void printBoard(ChessPiece[][] pieces) {
