@@ -14,11 +14,17 @@ public class Program {
 		ChessMatch chessMatch = new ChessMatch();
 		
 		while(true) {
-			try {				BoardBuilder.clearScreen();
+			try {				
+				BoardBuilder.clearScreen();
 				BoardBuilder.printBoard(chessMatch.getPieces());
 				System.out.println();
 				System.out.print("Source: ");
 				ChessPosition source = BoardBuilder.readChessPosition(sc);
+				
+				boolean[][] possibleMoves = chessMatch.possibleMoves(source);
+				BoardBuilder.clearScreen();
+				BoardBuilder.printBoard(chessMatch.getPieces(), possibleMoves);
+				
 				System.out.println();
 				System.out.print("Target: ");
 				ChessPosition target = BoardBuilder.readChessPosition(sc);
