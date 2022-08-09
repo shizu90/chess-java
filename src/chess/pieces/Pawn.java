@@ -2,12 +2,16 @@ package chess.pieces;
 
 import boardgame.Board;
 import boardgame.Position;
+import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.Color;
 
 public class Pawn extends ChessPiece {
-	public Pawn(Board board, Color color) {
+	private ChessMatch match;
+	
+	public Pawn(Board board, Color color, ChessMatch match) {
 		super(board, color);
+		this.match = match;
 	}
 	
 	@Override
@@ -34,6 +38,19 @@ public class Pawn extends ChessPiece {
 			if(getBoard().positionExists(p) && isThereOpponentPiece(p)) {
 				tmp[p.getRow()][p.getCol()] = true;
 			}
+			
+			//#special move en passant white
+			if(pos.getRow() == 3) {
+				Position left = new Position(pos.getRow(), pos.getCol() - 1);
+				if(getBoard().positionExists(left) && isThereOpponentPiece(left) && getBoard().piece(left) == match.getEnPassantVulnerable()) {
+					tmp[left.getRow() - 1][left.getCol()] = true;
+				}
+				Position right = new Position(pos.getRow(), pos.getCol() + 1);
+				if(getBoard().positionExists(right) && isThereOpponentPiece(right) && getBoard().piece(right) == match.getEnPassantVulnerable()) {
+					tmp[right.getRow() - 1][right.getCol()] = true;
+				}
+			}
+			
 		}else {
 			p.setValues(pos.getRow() + 1, pos.getCol());
 			if(getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)) {
@@ -52,6 +69,18 @@ public class Pawn extends ChessPiece {
 			p.setValues(pos.getRow() + 1, pos.getCol() + 1);
 			if(getBoard().positionExists(p) && isThereOpponentPiece(p)) {
 				tmp[p.getRow()][p.getCol()] = true;
+			}
+			
+			//#special move en passant black
+			if(pos.getRow() == 4) {
+				Position left = new Position(pos.getRow(), pos.getCol() - 1);
+				if(getBoard().positionExists(left) && isThereOpponentPiece(left) && getBoard().piece(left) == match.getEnPassantVulnerable()) {
+					tmp[left.getRow() + 1][left.getCol()] = true;
+				}
+				Position right = new Position(pos.getRow(), pos.getCol() + 1);
+				if(getBoard().positionExists(right) && isThereOpponentPiece(right) && getBoard().piece(right) == match.getEnPassantVulnerable()) {
+					tmp[right.getRow() + 1][right.getCol()] = true;
+				}
 			}
 		}
 		
